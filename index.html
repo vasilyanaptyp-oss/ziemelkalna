@@ -13,13 +13,13 @@
 <meta property="og:title" content="Ziemeļkalna DivBūve: ārsienu un fasāžu darbi visā Latvijā">
 <meta property="og:description" content="Siltināšana, armēšana, dekors un vēsturiskās fasādes, logi un durvis, jumti, guļbūves. Savs ekskavators. Tālr. +371 26931225.">
 <meta property="og:url" content="https://vasylian.com/ziemelkalna/">
-<meta property="og:image" content="https://vasylian.com/ziemelkalna/img/og.jpg">
+<meta property="og:image" content="https://vasylian.com/ziemelkalna/img/og-fasade.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" rx="16" fill="%23f4f1ec"/%3E%3Cg transform="translate%284 30%29 scale%28.2361%29"%3E%3Cg transform="translate%28-86 -143%29"%3E%3Cpath fill="%23192226" d="M88 305L176 251.18L176 232L198 232L198 237.72L251.5 205L385 292L252 222.7L117.4 305ZM374 298L402 299.5L474 309.5L393 308.5ZM294 181.5L349 145.5L349 262.54L325 246.9L325 171.6L300 188L300 230.61L294 226.7ZM386 206L423 228L423 298L410 297.3L410 227.5L390 215.5L390 224L386 223ZM242 264.5h12.5v12.5h-12.5ZM260 264.5h12.5v12.5h-12.5ZM242 283h12.5v12.5h-12.5ZM260 283h12.5v12.5h-12.5Z"/%3E%3Cpath fill="%23bd862e" d="M134 305.5L253 229L380 296L371 297.5L253 240.1L150.5 306ZM356 165L390 189L390 289.26L382 284.05L382 196.5L363 184.5L363 271.66L356 267.1ZM426 251L443 261L443 300.2L426 297.8Z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E">
 <link rel="preload" href="fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"GeneralContractor","name":"Ziemeļkalna DivBūve","legalName":"SIA \"Ziemeļkalna DivBūve\"","url":"https://vasylian.com/ziemelkalna/","logo":"https://vasylian.com/ziemelkalna/img/logo-original.png","image":"https://vasylian.com/ziemelkalna/img/og.jpg","email":"ziemelkalna.divbuve@gmail.com","telephone":"+371 26931225","taxID":"40203786315","vatID":"LV40203786315","foundingDate":"2026-10-01","address":{"@type":"PostalAddress","streetAddress":"\"Ziemeļi\"","addressLocality":"Dunavas pagasts","addressRegion":"Jēkabpils novads","postalCode":"LV-5216","addressCountry":"LV"},"areaServed":{"@type":"Country","name":"Latvija"},"knowsAbout":["Fasāžu siltināšana","Armēšana un apmetums","Dekoratīvā fasāžu apdare","Vēsturisko fasāžu atjaunošana","Durvju un logu montāža un nomaiņa","Jumti","Guļbūves","Ekskavatora pakalpojumi"]}
+{"@context":"https://schema.org","@type":"GeneralContractor","name":"Ziemeļkalna DivBūve","legalName":"SIA \"Ziemeļkalna DivBūve\"","url":"https://vasylian.com/ziemelkalna/","logo":"https://vasylian.com/ziemelkalna/img/logo-original.png","image":"https://vasylian.com/ziemelkalna/img/og-fasade.jpg","email":"ziemelkalna.divbuve@gmail.com","telephone":"+371 26931225","taxID":"40203786315","vatID":"LV40203786315","foundingDate":"2026-10-01","address":{"@type":"PostalAddress","streetAddress":"\"Ziemeļi\"","addressLocality":"Dunavas pagasts","addressRegion":"Jēkabpils novads","postalCode":"LV-5216","addressCountry":"LV"},"areaServed":{"@type":"Country","name":"Latvija"},"knowsAbout":["Fasāžu siltināšana","Armēšana un apmetums","Dekoratīvā fasāžu apdare","Vēsturisko fasāžu atjaunošana","Durvju un logu montāža un nomaiņa","Jumti","Guļbūves","Ekskavatora pakalpojumi"]}
 </script>
 <style>
 @font-face{font-family:"Archivo";src:url(fonts/archivo-var.woff2) format("woff2");font-weight:400 800;font-stretch:100% 125%;font-display:swap}
@@ -131,7 +131,18 @@ p{margin:0}
 .svc-idx h3{font-size:clamp(1.25rem,1.05rem + .8vw,1.7rem);margin:0 0 4px}
 .svc-idx p{color:var(--muted);max-width:44ch}
 
-/* our work */
+/* our work: finished objects first, then work in progress */
+.fin{display:grid;grid-template-columns:1fr 1fr;gap:22px 10px;margin:0 0 56px}
+.fin figure{margin:0;min-width:0}
+.fin .fr{background:#cfc8bb;aspect-ratio:2/3;overflow:hidden}
+.fin .fr img{display:block;width:100%;height:100%;object-fit:cover}
+.fin figcaption{display:flex;align-items:flex-start;gap:9px;margin-top:12px;font-size:.9375rem;line-height:1.35;font-weight:600;color:var(--ink)}
+.fin figcaption::before{content:"";width:8px;height:8px;flex:none;background:var(--gold);transform:rotate(45deg);margin-top:.42em}
+.fin .f1{grid-column:1 / -1}
+.wip{border-top:1.5px solid var(--line);padding-top:36px}
+.wip-txt{margin:0 0 22px}
+.wip-txt h3{font-size:clamp(1.3rem,1.1rem + .9vw,1.75rem);margin:0 0 8px}
+.wip-txt p{color:var(--muted);max-width:44ch}
 .works-ph{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0}
 .works-ph figure{margin:0;background:#cfc8bb;aspect-ratio:2/3;overflow:hidden}
 .works-ph img{width:100%;height:100%;object-fit:cover}
@@ -213,12 +224,14 @@ p{margin:0}
   .gable .ph{clip-path:polygon(50% 7%,96% 33%,96% 100%,4% 100%,4% 33%)}
   .gable .roof-m{display:none}
   .gable .roof-d{display:block}
-  .ph-cap{left:calc(4% + 14px);bottom:16px}
+  .ph-cap{left:calc(4% + 14px);bottom:16px;max-width:calc(92% - 28px)}
   .t-s{display:none}.t-l{display:inline}
   .cta{gap:12px 14px}.cta .btn{padding:0 24px}
   .svc-idx{grid-template-columns:1fr 1fr;column-gap:36px;border-bottom:0}
   .svc-idx li:nth-last-child(-n+2){border-bottom:1.5px solid #c9c0b0}
   .works-ph{gap:20px}
+  .fin{grid-template-columns:repeat(3,minmax(0,1fr));gap:0 20px}
+  .fin .f1{grid-column:auto}
   .area-ph{margin:0}
   .facts{grid-template-columns:1fr 1fr;column-gap:32px}
   .form{padding:30px 28px 30px}
@@ -253,6 +266,11 @@ p{margin:0}
   .works-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:64px;align-items:center}
   .works-ph{gap:28px}
   .works-ph .w2{margin-top:72px}
+  .fin{gap:0 28px;margin-bottom:72px}
+  .fin .f2{margin-top:56px}
+  .fin .f3{margin-top:112px}
+  .wip{padding-top:56px}
+  .wip-txt{margin:0}
   .steps{grid-template-columns:repeat(4,minmax(0,1fr));column-gap:28px;align-items:start}
   .steps li{padding:26px 0 0;border-top:3px solid var(--gold)}
   .steps li::before{display:none}
@@ -334,8 +352,8 @@ p{margin:0}
     <figure class="gable">
       <div class="ph">
         <picture>
-          <source media="(min-width:1040px)" type="image/webp" srcset="img/real-hero-d-560.webp 560w, img/real-hero-d-860.webp 860w, img/real-hero-d-1100.webp 1100w" sizes="(min-width:1440px) 560px, 40vw">
-          <img src="img/real-hero-m-780.webp" srcset="img/real-hero-m-420.webp 420w, img/real-hero-m-780.webp 780w, img/real-hero-m-1100.webp 1100w" sizes="(min-width:1040px) 40vw, 100vw" width="780" height="650" alt="Dekoratīva arkveida ailes apmale uz fasādes, mūsu darbs" fetchpriority="high">
+          <source media="(min-width:1040px)" type="image/webp" srcset="img/fin-hero-d-560.webp 560w, img/fin-hero-d-860.webp 860w, img/fin-hero-d-1100.webp 1100w" sizes="(min-width:1440px) 560px, 40vw">
+          <img src="img/fin-hero-m-780.webp" srcset="img/fin-hero-m-420.webp 420w, img/fin-hero-m-780.webp 780w, img/fin-hero-m-1100.webp 1100w" sizes="(min-width:1040px) 40vw, 100vw" width="780" height="650" alt="Atjaunota vēsturiska ēkas fasāde ar dekoratīviem logu frontoniem, mūsu darbs" fetchpriority="high">
         </picture>
       </div>
       <svg class="roof roof-m" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
@@ -348,7 +366,7 @@ p{margin:0}
         <polyline points="0,31.66 50,3.4 100,31.66" fill="none" stroke="#192226" stroke-width="17" vector-effect="non-scaling-stroke" stroke-linejoin="miter"/>
         <polyline points="0,35.26 50,7 100,35.26" fill="none" stroke="#bd862e" stroke-width="11" vector-effect="non-scaling-stroke" stroke-linejoin="miter"/>
       </svg>
-      <figcaption class="ph-cap">Mūsu darbs: dekoratīvā arka fasādē</figcaption>
+      <figcaption class="ph-cap">Mūsu darbs: vēsturiskās fasādes atjaunošana</figcaption>
     </figure>
     <p class="reg"><span>Būvkomersantu reģistrā: <b>Nr. 20949</b></span><span><b>PVN</b> maksātājs</span><span>Dunavas pag., Jēkabpils nov.</span></p>
   </div>
@@ -375,18 +393,29 @@ p{margin:0}
 </section>
 
 <section class="sec works" id="musu-darbi" aria-labelledby="h-works">
-  <div class="wrap works-grid">
+  <div class="wrap">
     <div class="sh">
       <p class="kick"><svg aria-hidden="true"><use href="#i-roof"/></svg>Mūsu darbi</p>
-      <h2 id="h-works">Dekoratīvās arkas un apmales fasādei</h2>
-      <p>Foto no mūsu objekta darbu laikā: arkveida aiļu apmales un dekors uz ēkas fasādes.</p>
+      <h2 id="h-works">Atjaunotas un apdarītas fasādes</h2>
+      <p>Pabeigts objekts: vēsturiskas ēkas fasāde pēc atjaunošanas un apdares. Zemāk ir arī foto no darbu procesa.</p>
     </div>
-    <div>
-      <div class="works-ph">
-        <figure class="w1"><img src="img/work-2-560.webp" srcset="img/work-2-360.webp 360w, img/work-2-560.webp 560w, img/work-2-900.webp 900w" sizes="(min-width:1040px) 27vw, 46vw" width="560" height="840" loading="lazy" decoding="async" alt="Arkveida ailes apmale uz fasādes darbu laikā"></figure>
-        <figure class="w2"><img src="img/work-1-560.webp" srcset="img/work-1-360.webp 360w, img/work-1-560.webp 560w, img/work-1-900.webp 900w" sizes="(min-width:1040px) 27vw, 46vw" width="560" height="840" loading="lazy" decoding="async" alt="Loga arkas apmales profils tuvplānā"></figure>
+    <div class="fin">
+      <figure class="f1"><div class="fr"><img src="img/fin-a-600.webp" srcset="img/fin-a-360.webp 360w, img/fin-a-600.webp 600w, img/fin-a-900.webp 900w" sizes="(min-width:1280px) 368px, (min-width:640px) 29vw, 92vw" width="600" height="900" loading="lazy" decoding="async" alt="Atjaunota vēsturiska ēkas fasāde: krēmkrāsas siena, zilas detaļas un dekoratīvi logu frontoni"></div><figcaption>Vēsturiskās fasādes atjaunošana</figcaption></figure>
+      <figure class="f2"><div class="fr"><img src="img/fin-b-600.webp" srcset="img/fin-b-360.webp 360w, img/fin-b-600.webp 600w, img/fin-b-900.webp 900w" sizes="(min-width:1280px) 368px, (min-width:640px) 29vw, 46vw" width="600" height="900" loading="lazy" decoding="async" alt="Fasādes apdare tuvplānā: logu apmales un frontoni ar zilām detaļām"></div><figcaption>Fasādes apdare</figcaption></figure>
+      <figure class="f3"><div class="fr"><img src="img/fin-c-600.webp" srcset="img/fin-c-360.webp 360w, img/fin-c-600.webp 600w, img/fin-c-900.webp 900w" sizes="(min-width:1280px) 368px, (min-width:640px) 29vw, 46vw" width="600" height="900" loading="lazy" decoding="async" alt="Atjaunotās vēsturiskās fasādes augšējie stāvi ar dekoratīvām logu apmalēm"></div><figcaption>Vēsturiskās fasādes atjaunošana</figcaption></figure>
+    </div>
+    <div class="works-grid wip">
+      <div class="wip-txt">
+        <h3 id="h-wip">Darba procesā</h3>
+        <p>Foto no mūsu objekta darbu laikā: arkveida aiļu apmales un dekors uz ēkas fasādes.</p>
       </div>
-      <p class="works-cap">Dekoratīvās arkas un apmales fasādei</p>
+      <div>
+        <div class="works-ph">
+          <figure class="w1"><img src="img/work-2-560.webp" srcset="img/work-2-360.webp 360w, img/work-2-560.webp 560w, img/work-2-900.webp 900w" sizes="(min-width:1040px) 27vw, 46vw" width="560" height="840" loading="lazy" decoding="async" alt="Arkveida ailes apmale uz fasādes darbu laikā"></figure>
+          <figure class="w2"><img src="img/work-1-560.webp" srcset="img/work-1-360.webp 360w, img/work-1-560.webp 560w, img/work-1-900.webp 900w" sizes="(min-width:1040px) 27vw, 46vw" width="560" height="840" loading="lazy" decoding="async" alt="Loga arkas apmales profils tuvplānā"></figure>
+        </div>
+        <p class="works-cap">Dekoratīvās arkas un apmales fasādei</p>
+      </div>
     </div>
   </div>
 </section>
