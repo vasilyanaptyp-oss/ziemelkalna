@@ -213,11 +213,44 @@ p{margin:0}
 @media (max-width:379px){.form .btn{padding:0 12px;font-size:.9375rem;gap:10px}}
 .fallback{font-size:.875rem;color:var(--muted);margin-top:14px}
 .fallback a{font-weight:700;color:var(--ink);overflow-wrap:anywhere;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:3px;display:inline-block;padding:11px 0}
-.photo-line{margin:2px 0 12px;font-size:.9375rem;line-height:1.4;color:var(--ink)}
+.fld-file .filebox{position:relative;display:flex;align-items:center;gap:10px;min-height:50px;padding:8px 12px;background:#f6f3ec;border:1.5px dashed #bdb4a5;border-radius:2px}
+.fld-file .filebox:focus-within{border-color:var(--ink);box-shadow:0 0 0 3px rgba(189,134,46,.35)}
+.fld .filebox input[type=file]{position:absolute;left:0;top:0;width:100%;height:100%;min-height:0;padding:0;border:0;opacity:0;cursor:pointer}
+.fld .filebox input[type=file]:disabled{cursor:not-allowed}
+.fld .filebox .fb{flex:none;display:inline-flex;align-items:center;min-height:34px;padding:0 12px;background:var(--ink);color:#fff;font-weight:700;font-size:.875rem;border-radius:2px}
+.fld .filebox.full .fb{background:#8b9396}
+.fld .filebox .fn{flex:1 1 auto;min-width:0;font-size:.8125rem;line-height:1.3;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fld .filebox .fn.has{color:var(--ink);font-weight:700}
+.thumbs{display:none;flex-wrap:wrap;gap:14px 12px;margin:14px 0 0;padding:0;list-style:none}
+.thumbs.on{display:flex}
+.thumbs li{position:relative;width:76px;height:76px}
+.thumbs .th{display:flex;align-items:center;justify-content:center;width:76px;height:76px;object-fit:cover;background:#f6f3ec;border:1px solid #bdb4a5;border-radius:2px;font-size:.8125rem;color:var(--muted)}
+.thumbs .rm{position:absolute;top:-10px;right:-10px;width:44px;height:44px;padding:0;border:0;background:transparent;cursor:pointer}
+.thumbs .rm::before{content:"\00d7";position:absolute;top:0;right:0;width:26px;height:26px;display:flex;align-items:center;justify-content:center;background:var(--ink);color:#fff;border:2px solid #fff;border-radius:50%;font-size:1.0625rem;line-height:1;font-weight:700}
+.thumbs .rm:hover::before{background:#a3261c}
+.fnote{display:none;margin:10px 0 0;font-size:.875rem;line-height:1.4;font-weight:600;color:#7d1b13}
+.fnote.on{display:block}
+.form{position:relative}
+.hp{position:absolute;left:0;top:0;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);opacity:0;pointer-events:none}
+.hp label{display:block;white-space:nowrap}
+.hp input{width:1px;height:1px;padding:0;border:0}
+.form .btn:disabled{opacity:.8;cursor:progress}
+.prog{display:none;height:4px;margin-top:8px;background:#e8e3da;border-radius:2px;overflow:hidden}
+.form.sending .prog{display:block}
+.prog i{display:block;height:100%;width:40%;background:var(--gold);animation:prog 1.2s ease-in-out infinite}
+@keyframes prog{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
+@media (prefers-reduced-motion:reduce){.prog i{animation:none;width:100%;opacity:.6}}
 .form .btn-wa{margin-top:12px}
-.mailnote{display:none;margin-top:12px;padding:12px 14px;background:#f1e6cf;border-left:4px solid var(--gold);font-size:.9375rem;font-weight:600;line-height:1.4}
-.mailnote.on{display:block}
-.mailnote a{color:var(--ink);font-weight:700;overflow-wrap:anywhere;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:3px}
+.sendnote{display:none;margin-top:12px;padding:12px 14px;background:#fbe9e6;border-left:4px solid #a3261c;color:#7d1b13;font-size:.9375rem;font-weight:600;line-height:1.4}
+.sendnote.on{display:block}
+.sendnote a{color:#7d1b13;font-weight:700;overflow-wrap:anywhere;text-decoration-color:#a3261c;text-decoration-thickness:2px;text-underline-offset:3px;display:inline-block;padding:9px 0}
+.sentbox{display:none;text-align:left}
+.form.done>:not(.sentbox){display:none!important}
+.form.done .sentbox{display:block}
+.sentbox .tick{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:var(--gold);color:var(--ink);font-size:1.5rem;font-weight:800;margin-bottom:14px}
+.sentbox .sent-t{font-size:1.25rem;line-height:1.35;font-weight:700;margin:0 0 14px}
+.sentbox .sent-t:focus{outline:none}
+.sentbox .again{display:inline-flex;align-items:center;min-height:44px;padding:0;border:0;background:none;font:inherit;font-weight:700;color:var(--ink);text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:4px;cursor:pointer}
 
 /* footer: foundation */
 .ftr{background:#11181b;color:#c3c8c7;font-size:.9375rem}
@@ -529,12 +562,28 @@ p{margin:0}
         <label for="f-msg">Par darbu</label>
         <textarea id="f-msg" name="msg" rows="4" placeholder="Kas jādara, kāda ir ēka, kad vēlaties sākt"></textarea>
       </div>
+      <div class="fld fld-file">
+        <label for="f-file">Pievienot objekta foto <small>(nav obligāti)</small></label>
+        <div class="filebox" id="f-box">
+          <input id="f-file" type="file" accept="image/*" multiple>
+          <span class="fb" aria-hidden="true">Izvēlēties failus</span>
+          <span class="fn" id="f-files" aria-live="polite">Nav izvēlēts neviens fails</span>
+        </div>
+        <ul class="thumbs" id="f-thumbs"></ul>
+        <p class="fnote" id="f-note" role="status"></p>
+      </div>
+      <div class="hp" aria-hidden="true"><label for="f-hp">Neaizpildiet šo lauku</label><input id="f-hp" name="hp" type="text" tabindex="-1" autocomplete="off"></div>
       <p class="sum" id="f-sum" role="alert">Lūdzu, aizpildiet sarkanos laukus.</p>
-      <p class="photo-line">Bildes varat pievienot e-pastā, kas atvērsies pēc nospiešanas, vai sūtīt pa WhatsApp</p>
       <button class="btn btn-gold" type="submit"><span class="bl">Nosūtīt pieteikumu</span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-      <p class="mailnote" id="f-mailnote" role="status">Ja e-pasts neatvērās, rakstiet uz <a href="mailto:ziemelkalna.divbuve@gmail.com">ziemelkalna.divbuve@gmail.com</a> vai sūtiet foto pa WhatsApp</p>
+      <div class="prog" aria-hidden="true"><i></i></div>
+      <p class="sendnote" id="f-err" role="alert">Neizdevās nosūtīt. Lūdzu, mēģiniet vēlreiz vai rakstiet uz <a id="f-err-mail" href="mailto:ziemelkalna.divbuve@gmail.com">ziemelkalna.divbuve@gmail.com</a> vai <a id="f-err-wa" href="https://wa.me/37126931225" target="_blank" rel="noopener">WhatsApp</a></p>
       <a class="btn btn-line btn-wa" id="f-wa" href="https://wa.me/37126931225?text=Labdien%21%20S%C5%ABtu%20objekta%20foto." target="_blank" rel="noopener"><span class="bl">Sūtīt foto pa WhatsApp</span></a>
       <p class="fallback">Vai rakstiet uz <a href="mailto:ziemelkalna.divbuve@gmail.com">ziemelkalna.divbuve@gmail.com</a> vai zvaniet <a href="tel:+37126931225">+371 26931225</a></p>
+      <div class="sentbox" id="f-sent" role="status">
+        <div class="tick" aria-hidden="true">&#10003;</div>
+        <p class="sent-t" id="f-sent-t" tabindex="-1">Paldies! Pieteikums nosūtīts. Sazināsimies ar jums.</p>
+        <button class="again" type="button" id="f-again">Sūtīt vēl vienu</button>
+      </div>
     </form>
   </div>
 </section>
@@ -611,28 +660,220 @@ p{margin:0}
   });
 
   var MAIL = 'ziemelkalna.divbuve@gmail.com';
-  var mailnote = field('f-mailnote');
-  function val(id) { return field(id).value.replace(/\s+$/, '').replace(/^\s+/, ''); }
+  var RELAY = 'https://script.google.com/macros/s/AKfycbxG8sh9Xi-msP2Ol6iG9FBB__M4_Btafq6KlNpsJNSXS-XnmKKVrajYfpyaGgVzA8zG/exec';
+  var SITE = 'ziemelkalna';
+  var MAX_PHOTOS = 6, MAX_SIDE = 1600, QUALITY = 0.8, MAX_ORIG = 4 * 1024 * 1024, MAX_TOTAL = 12 * 1024 * 1024, TIMEOUT = 25000;
+  var fileInput = field('f-file'), fileNames = field('f-files'), fileBox = field('f-box'), thumbs = field('f-thumbs'), fnote = field('f-note');
+  var errBox = field('f-err'), sentBox = field('f-sent'), hp = field('f-hp');
+  var btn = form.querySelector('button[type=submit]'), btnLabel = btn.querySelector('.bl'), btnText = btnLabel.textContent;
+  var photos = [], pending = Promise.resolve(), sending = false, sendId = 0, firstFocus = 0, processing = 0;
+
+  form.addEventListener('focusin', function () { if (!firstFocus) firstFocus = Date.now(); });
+
+  function val(id) { return field(id).value.trim(); }
+  function jpgName(name) {
+    var base = (name || 'foto').replace(/\.[^.]*$/, '') || 'foto';
+    return base + '.jpg';
+  }
+  function shrink(file) {
+    return new Promise(function (resolve, reject) {
+      var url = URL.createObjectURL(file), im = new Image();
+      im.onload = function () {
+        var w = im.naturalWidth, h = im.naturalHeight;
+        if (!w || !h) { URL.revokeObjectURL(url); reject(new Error('size')); return; }
+        var k = Math.min(1, MAX_SIDE / Math.max(w, h)), cw = Math.round(w * k), ch = Math.round(h * k);
+        var c = document.createElement('canvas');
+        c.width = cw; c.height = ch;
+        var x = c.getContext('2d');
+        x.fillStyle = '#fff';
+        x.fillRect(0, 0, cw, ch);
+        x.drawImage(im, 0, 0, cw, ch);
+        URL.revokeObjectURL(url);
+        c.toBlob(function (b) {
+          c.width = c.height = 0;
+          if (!b) { reject(new Error('blob')); return; }
+          resolve(b);
+        }, 'image/jpeg', QUALITY);
+      };
+      im.onerror = function () { URL.revokeObjectURL(url); reject(new Error('decode')); };
+      im.src = url;
+    });
+  }
+  function setNote(list) {
+    fnote.textContent = list.join(' ');
+    fnote.classList.toggle('on', list.length > 0);
+  }
+  function total() { return photos.reduce(function (s, p) { return s + p.blob.size; }, 0); }
+  function render() {
+    var n = photos.length;
+    fileNames.textContent = processing > 0 ? 'Apstrādā foto…' : n ? (n === 1 ? '1 foto pievienots' : n + ' foto pievienoti') : 'Nav izvēlēts neviens fails';
+    fileNames.classList.toggle('has', n > 0 && processing === 0);
+    fileInput.disabled = n >= MAX_PHOTOS;
+    fileBox.classList.toggle('full', n >= MAX_PHOTOS);
+    thumbs.innerHTML = '';
+    photos.forEach(function (p) {
+      var li = document.createElement('li'), th;
+      if (p.thumb) {
+        th = new Image();
+        th.className = 'th'; th.alt = 'Pievienotais foto'; th.width = 76; th.height = 76;
+        th.src = p.thumb;
+      } else {
+        th = document.createElement('span');
+        th.className = 'th'; th.textContent = 'foto';
+      }
+      var rm = document.createElement('button');
+      rm.type = 'button'; rm.className = 'rm';
+      rm.setAttribute('aria-label', 'Noņemt foto');
+      rm.addEventListener('click', function () { removePhoto(p); });
+      li.appendChild(th); li.appendChild(rm);
+      thumbs.appendChild(li);
+    });
+    thumbs.classList.toggle('on', n > 0);
+  }
+  function dropThumb(p) { if (p.thumb) { URL.revokeObjectURL(p.thumb); p.thumb = null; } }
+  function removePhoto(p) {
+    if (sending) return;
+    var i = photos.indexOf(p);
+    if (i < 0) return;
+    photos.splice(i, 1);
+    dropThumb(p);
+    setNote([]);
+    render();
+  }
+  function clearPhotos() {
+    photos.forEach(dropThumb);
+    photos = [];
+    setNote([]);
+    render();
+  }
+  function addFiles(src) {
+    var notes = [];
+    var room = MAX_PHOTOS - photos.length;
+    if (src.length > room) {
+      src = src.slice(0, Math.max(room, 0));
+      notes.push('Var pievienot līdz ' + MAX_PHOTOS + ' foto, pārējie nav pievienoti.');
+    }
+    return src.reduce(function (p, f) {
+      return p.then(function () {
+        if (f.type && f.type.indexOf('image/') !== 0) { notes.push('Var pievienot tikai foto.'); return; }
+        return shrink(f).then(function (b) {
+          return { name: jpgName(f.name), type: 'image/jpeg', blob: b };
+        }, function () {
+          if (f.size > MAX_ORIG) { notes.push('Foto ir par lielu, lūdzu sūtiet to pa WhatsApp.'); return null; }
+          return { name: f.name || 'foto', type: f.type || (/\.hei[cf]$/i.test(f.name || '') ? 'image/heic' : 'image/jpeg'), blob: f };
+        }).then(function (item) {
+          if (!item) return;
+          if (total() + item.blob.size > MAX_TOTAL) { notes.push('Kopējais foto izmērs ir par lielu, daļa netika pievienota.'); return; }
+          item.thumb = item.blob === f ? null : URL.createObjectURL(item.blob);
+          photos.push(item);
+          render();
+        });
+      });
+    }, Promise.resolve()).then(function () {
+      setNote(notes.filter(function (x, i) { return notes.indexOf(x) === i; }));
+    });
+  }
+  fileInput.addEventListener('change', function () {
+    var src = Array.prototype.slice.call(fileInput.files || []);
+    fileInput.value = '';
+    if (!src.length) return;
+    processing++;
+    render();
+    pending = pending.then(function () { return addFiles(src); }).catch(function () {}).then(function () { processing--; render(); });
+  });
+
+  function toBase64(blob) {
+    return new Promise(function (resolve, reject) {
+      var r = new FileReader();
+      r.onload = function () { var s = String(r.result), i = s.indexOf(','); resolve(i < 0 ? '' : s.slice(i + 1)); };
+      r.onerror = function () { reject(new Error('read')); };
+      r.readAsDataURL(blob);
+    });
+  }
+  function uniqueName(name, seen) {
+    var n = name, i = 1;
+    while (seen[n.toLowerCase()]) { i++; n = name.replace(/(\.[^.]*)?$/, '-' + i + '$1'); }
+    seen[n.toLowerCase()] = 1;
+    return n;
+  }
+  function buildBody() {
+    var svc = form.querySelector('input[name="svc"]:checked'), seen = {};
+    return Promise.all(photos.map(function (p) {
+      return toBase64(p.blob).then(function (d) { return { name: uniqueName(p.name, seen), type: p.type, data: d }; });
+    })).then(function (list) {
+      return JSON.stringify({
+        site: SITE,
+        name: val('f-name'),
+        contact: val('f-contact'),
+        svc: svc ? svc.value : '',
+        place: val('f-place'),
+        msg: val('f-msg'),
+        hp: hp.value,
+        t: firstFocus ? Date.now() - firstFocus : 0,
+        photos: list
+      });
+    });
+  }
+  function mailHref() {
+    var svc = form.querySelector('input[name="svc"]:checked'), s = svc ? svc.value : '';
+    var lines = ['Vārds: ' + val('f-name'), 'Tālrunis vai e-pasts: ' + val('f-contact'), 'Kas jādara: ' + s,
+                 'Objekta vieta: ' + val('f-place'), 'Par darbu: ' + val('f-msg').replace(/\r?\n/g, ' ')];
+    return 'mailto:' + MAIL + '?subject=' + encodeURIComponent('Pieteikums no mājaslapas' + (s ? ': ' + s : '')) + '&body=' + encodeURIComponent(lines.join('\r\n'));
+  }
+  function setSending(on) {
+    sending = on;
+    btn.disabled = on;
+    form.classList.toggle('sending', on);
+    form.setAttribute('aria-busy', on ? 'true' : 'false');
+    btnLabel.textContent = on ? 'Sūta…' : btnText;
+  }
+  function showError() {
+    field('f-err-mail').href = mailHref();
+    errBox.classList.add('on');
+    errBox.scrollIntoView({ block: 'nearest' });
+  }
+  function showSent() {
+    form.classList.add('done');
+    clearPhotos();
+    var t = field('f-sent-t');
+    try { t.focus({ preventScroll: true }); } catch (err) { t.focus(); }
+    form.scrollIntoView({ block: 'nearest' });
+  }
+  function send() {
+    var my = ++sendId, over = false, ctl = typeof AbortController === 'function' ? new AbortController() : null;
+    setSending(true);
+    errBox.classList.remove('on');
+    var timer = setTimeout(function () {
+      if (my !== sendId || over) return;
+      over = true;
+      if (ctl) ctl.abort();
+      setSending(false);
+      showError();
+    }, TIMEOUT);
+    function end(ok) {
+      if (my !== sendId || over) return;
+      over = true;
+      clearTimeout(timer);
+      setSending(false);
+      if (ok) showSent(); else showError();
+    }
+    pending.then(buildBody).then(function (body) {
+      if (over) return null;
+      return fetch(RELAY, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: body, signal: ctl ? ctl.signal : undefined });
+    }).then(function (r) {
+      return r ? r.json() : null;
+    }).then(function (j) {
+      end(!!j && j.ok === true);
+    }).catch(function () { end(false); });
+  }
   function firstError() {
     var a = check(nameIn), b = check(contactIn);
     if (a && b) return null;
     return a ? contactIn : nameIn;
   }
-  function buildHref() {
-    var svc = form.querySelector('input[name="svc"]:checked');
-    var svcText = svc ? svc.value : '';
-    var subject = 'Pieteikums no mājaslapas' + (svcText ? ': ' + svcText : '');
-    var lines = [
-      'Vārds: ' + val('f-name'),
-      'Tālrunis vai e-pasts: ' + val('f-contact'),
-      'Kas jādara: ' + svcText,
-      'Objekta vieta: ' + val('f-place'),
-      'Par darbu: ' + val('f-msg').replace(/\r?\n/g, ' ')
-    ];
-    return 'mailto:' + MAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\r\n'));
-  }
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+    if (sending) return;
     var bad = firstError();
     if (bad) {
       sum.classList.add('on');
@@ -641,14 +882,20 @@ p{margin:0}
       return;
     }
     sum.classList.remove('on');
-    mailnote.classList.add('on');
-    var link = document.createElement('a');
-    link.href = buildHref();
-    link.hidden = true;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
+    send();
   });
+  field('f-again').addEventListener('click', function () {
+    form.reset();
+    clearPhotos();
+    errBox.classList.remove('on');
+    [nameIn, contactIn].forEach(function (i) { i.closest('.fld').classList.remove('bad'); i.removeAttribute('aria-invalid'); });
+    sum.classList.remove('on');
+    firstFocus = 0;
+    form.classList.remove('done');
+    form.scrollIntoView({ block: 'nearest' });
+    nameIn.focus({ preventScroll: true });
+  });
+  window.addEventListener('pageshow', function (e) { if (e.persisted && sending) { sendId++; setSending(false); } });
 })();
 </script>
 </body>
