@@ -148,6 +148,16 @@ p{margin:0}
 .works-ph img{width:100%;height:100%;object-fit:cover}
 .works-cap{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:.9375rem;font-weight:600;color:var(--ink)}
 .works-cap::before{content:"";width:8px;height:8px;flex:none;background:var(--gold);transform:rotate(45deg)}
+/* before / after: Google Street View 2025 vs the finished facade */
+.ba-h{font-size:clamp(1.3rem,1.1rem + .9vw,1.75rem);margin:0 0 18px}
+.ba{display:grid;grid-template-columns:1fr;gap:26px;margin:0 0 48px}
+.ba-col{display:grid;gap:22px;align-content:start;min-width:0}
+.ba figure{margin:0;min-width:0}
+.ba .fr{background:#cfc8bb;aspect-ratio:2/3;overflow:hidden}
+.ba .fr img{display:block;width:100%;height:100%;object-fit:cover}
+.ba figcaption{display:flex;align-items:flex-start;gap:9px;margin-top:10px;font-size:.875rem;line-height:1.35;font-weight:600;color:var(--ink)}
+.ba figcaption::before{content:"";width:8px;height:8px;flex:none;background:var(--gold);transform:rotate(45deg);margin-top:.42em}
+.ba .attrib{margin:0;font-size:.75rem;line-height:1.45;color:var(--muted)}
 
 /* process */
 .steps{list-style:none;margin:0;padding:0;display:grid;gap:0}
@@ -170,7 +180,7 @@ p{margin:0}
 
 /* contact */
 .contact{background:var(--stone)}
-.c-grid{display:grid;gap:34px}
+.c-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:34px}
 .c-info .logo-full{width:min(300px,78%);height:auto;margin:0 0 28px}
 .c-list{list-style:none;margin:0;padding:0;border-top:1px solid #cbc3b5}
 .c-list li{padding:14px 0;border-bottom:1px solid #cbc3b5}
@@ -197,10 +207,17 @@ p{margin:0}
 .chip input:checked+span{background:var(--ink);border-color:var(--ink);color:#fff}
 .chip input:focus-visible+span{outline:3px solid var(--gold);outline-offset:2px}
 .form .btn{width:100%;justify-content:center;margin-top:6px}
+@media (max-width:379px){.form .btn{padding:0 12px;font-size:.9375rem;gap:10px}}
 .fallback{font-size:.875rem;color:var(--muted);margin-top:14px}
 .fallback a{font-weight:700;color:var(--ink);overflow-wrap:anywhere;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:3px;display:inline-block;padding:11px 0}
 .sent{display:none;margin-top:12px;padding:12px 14px;background:#f1e6cf;border-left:4px solid var(--gold);font-size:.9375rem;font-weight:600}
 .sent.on{display:block}
+#paldies:target{display:block}
+.fld-file .filebox{position:relative;display:flex;align-items:center;gap:10px;min-height:50px;padding:8px 12px;background:#f6f3ec;border:1.5px dashed #bdb4a5;border-radius:2px}
+.fld-file .filebox:focus-within{border-color:var(--ink);box-shadow:0 0 0 3px rgba(189,134,46,.35)}
+.fld .filebox input[type=file]{position:absolute;left:0;top:0;width:100%;height:100%;min-height:0;padding:0;border:0;opacity:0;cursor:pointer}
+.fld .filebox .fb{flex:none;display:inline-flex;align-items:center;min-height:34px;padding:0 12px;background:var(--ink);color:#fff;font-weight:700;font-size:.875rem;border-radius:2px}
+.fld .filebox .fn{flex:1 1 auto;min-width:0;font-size:.8125rem;line-height:1.3;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 /* footer: foundation */
 .ftr{background:#11181b;color:#c3c8c7;font-size:.9375rem}
@@ -232,6 +249,7 @@ p{margin:0}
   .works-ph{gap:20px}
   .fin{grid-template-columns:repeat(3,minmax(0,1fr));gap:0 20px}
   .fin .f1{grid-column:auto}
+  .ba{grid-template-columns:1fr 1fr;gap:28px 24px}
   .area-ph{margin:0}
   .facts{grid-template-columns:1fr 1fr;column-gap:32px}
   .form{padding:30px 28px 30px}
@@ -269,6 +287,7 @@ p{margin:0}
   .fin{gap:0 28px;margin-bottom:72px}
   .fin .f2{margin-top:56px}
   .fin .f3{margin-top:112px}
+  .ba{max-width:960px;gap:28px 28px;margin-bottom:64px}
   .wip{padding-top:56px}
   .wip-txt{margin:0}
   .steps{grid-template-columns:repeat(4,minmax(0,1fr));column-gap:28px;align-items:start}
@@ -404,6 +423,18 @@ p{margin:0}
       <figure class="f2"><div class="fr"><img src="img/fin-b-600.webp" srcset="img/fin-b-360.webp 360w, img/fin-b-600.webp 600w, img/fin-b-900.webp 900w" sizes="(min-width:1280px) 368px, (min-width:640px) 29vw, 46vw" width="600" height="900" loading="lazy" decoding="async" alt="Fasādes apdare tuvplānā: logu apmales un frontoni ar zilām detaļām"></div><figcaption>Fasādes apdare</figcaption></figure>
       <figure class="f3"><div class="fr"><img src="img/fin-c-600.webp" srcset="img/fin-c-360.webp 360w, img/fin-c-600.webp 600w, img/fin-c-900.webp 900w" sizes="(min-width:1280px) 368px, (min-width:640px) 29vw, 46vw" width="600" height="900" loading="lazy" decoding="async" alt="Atjaunotās vēsturiskās fasādes augšējie stāvi ar dekoratīvām logu apmalēm"></div><figcaption>Vēsturiskās fasādes atjaunošana</figcaption></figure>
     </div>
+    <h3 class="ba-h">Pirms un pēc</h3>
+    <div class="ba">
+      <div class="ba-col">
+        <figure><div class="fr"><img src="img/before-a-540.webp" srcset="img/before-a-360.webp 360w, img/before-a-540.webp 540w, img/before-a-660.webp 660w" sizes="(min-width:1040px) 440px, (min-width:640px) 44vw, 92vw" width="540" height="810" loading="lazy" decoding="async" alt="Ēkas fasāde pirms atjaunošanas: nolietots apmetums un izdrupušas logu apmales"></div><figcaption>Pirms</figcaption></figure>
+        <figure><div class="fr"><img src="img/before-b-540.webp" srcset="img/before-b-360.webp 360w, img/before-b-540.webp 540w, img/before-b-660.webp 660w" sizes="(min-width:1040px) 440px, (min-width:640px) 44vw, 92vw" width="540" height="810" loading="lazy" decoding="async" alt="Ēkas augšējie stāvi pirms atjaunošanas: vecs apmetums un logu frontoni"></div><figcaption>Pirms</figcaption></figure>
+        <p class="attrib">Attēls pirms darbiem: Google Street View, 2025</p>
+      </div>
+      <div class="ba-col">
+        <figure><div class="fr"><img src="img/fin-a-600.webp" srcset="img/fin-a-360.webp 360w, img/fin-a-600.webp 600w, img/fin-a-900.webp 900w" sizes="(min-width:1040px) 440px, (min-width:640px) 44vw, 92vw" width="600" height="900" loading="lazy" decoding="async" alt="Tā pati ēka pēc atjaunošanas: krēmkrāsas fasāde ar zilām detaļām un dekoratīviem logu frontoniem"></div><figcaption>Pēc</figcaption></figure>
+        <figure><div class="fr"><img src="img/fin-c-600.webp" srcset="img/fin-c-360.webp 360w, img/fin-c-600.webp 600w, img/fin-c-900.webp 900w" sizes="(min-width:1040px) 440px, (min-width:640px) 44vw, 92vw" width="600" height="900" loading="lazy" decoding="async" alt="Atjaunotās fasādes augšējie stāvi ar dekoratīvām logu apmalēm"></div><figcaption>Pēc</figcaption></figure>
+      </div>
+    </div>
     <div class="works-grid wip">
       <div class="wip-txt">
         <h3 id="h-wip">Darba procesā</h3>
@@ -431,7 +462,7 @@ p{margin:0}
       <li><span class="n">1</span><h3>Saruna</h3><p>Uzrakstiet, kas jādara un kur atrodas objekts. Pietiek ar dažiem teikumiem un, ja ir, fotogrāfijām.</p></li>
       <li><span class="n">2</span><h3>Apskate objektā</h3><p>Apskatām vietu klātienē un precizējam darbu apjomu, materiālus un secību.</p></li>
       <li><span class="n">3</span><h3>Tāme un plāns</h3><p>Rakstiski: darbi, materiāli, cena un termiņi. Sākam, kad viss ir saskaņots.</p></li>
-      <li><span class="n">4</span><h3>Darbi un nodošana</h3><p>Strādājam pēc saskaņotā plāna un paveikto nododam kopā ar jums objektā.</p></li>
+      <li><span class="n">4</span><h3>Objekta nodošana</h3><p>Kad darbi pabeigti, iztīrām objektu un visu apskatām kopā ar jums. Pēc tam objektu nododam.</p></li>
     </ol>
   </div>
 </section>
@@ -466,9 +497,13 @@ p{margin:0}
         <li><b>Adrese</b>"Ziemeļi", Dunavas pag., Jēkabpils nov., LV-5216</li>
       </ul>
     </div>
-    <form class="form" id="mailform" novalidate>
+    <form class="form" id="mailform" action="https://formsubmit.co/ziemelkalna.divbuve@gmail.com" method="POST" enctype="multipart/form-data" novalidate>
       <h3>Uzrakstiet mums</h3>
       <p class="sub">Pietiek ar dažiem vārdiem: kas jādara un kur.</p>
+      <input type="hidden" name="_subject" value="Jauns pieteikums no mājaslapas">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://vasylian.com/ziemelkalna/#paldies">
       <div class="fld">
         <label for="f-name">Vārds</label>
         <input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="e-name">
@@ -498,9 +533,17 @@ p{margin:0}
         <label for="f-msg">Par darbu</label>
         <textarea id="f-msg" name="msg" rows="4" placeholder="Kas jādara, kāda ir ēka, kad vēlaties sākt"></textarea>
       </div>
-      <button class="btn btn-gold" type="submit">Sagatavot e-pastu<svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-      <p class="fallback">Poga atver jūsu e-pasta programmu ar sagatavotu vēstuli. Ja tā neatveras, rakstiet uz <a href="mailto:ziemelkalna.divbuve@gmail.com">ziemelkalna.divbuve@gmail.com</a> vai zvaniet <a href="tel:+37126931225">+371 26931225</a>.</p>
-      <p class="sent" id="f-sent" role="status"></p>
+      <div class="fld fld-file">
+        <label for="f-file">Pievienot objekta foto <small>(nav obligāti)</small></label>
+        <div class="filebox">
+          <input id="f-file" name="attachment" type="file" accept="image/*" multiple>
+          <span class="fb" aria-hidden="true">Izvēlēties failus</span>
+          <span class="fn" id="f-files">Nav izvēlēts neviens fails</span>
+        </div>
+      </div>
+      <button class="btn btn-gold" type="submit">Nosūtīt pieteikumu<svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      <p class="fallback">Vai rakstiet uz <a href="mailto:ziemelkalna.divbuve@gmail.com">ziemelkalna.divbuve@gmail.com</a> vai zvaniet <a href="tel:+37126931225">+371 26931225</a></p>
+      <p class="sent" id="paldies" role="status">Paldies! Pieteikums ir nosūtīts. Sazināsimies ar jums.</p>
     </form>
   </div>
 </section>
@@ -551,9 +594,7 @@ p{margin:0}
   var onMq = function (e) { if (e.matches) setMenu(false); };
   if (mq.addEventListener) mq.addEventListener('change', onMq); else if (mq.addListener) mq.addListener(onMq);
 
-  var MAIL = 'ziemelkalna.divbuve@gmail.com';
   var form = document.getElementById('mailform');
-  var sent = document.getElementById('f-sent');
   function field(id) { return document.getElementById(id); }
   function check(input) {
     var ok = input.value.trim().length > 1;
@@ -565,30 +606,20 @@ p{margin:0}
     field(id).addEventListener('input', function () { if (this.closest('.fld').classList.contains('bad')) check(this); });
   });
   form.addEventListener('submit', function (e) {
-    e.preventDefault();
     var a = check(field('f-name')), b = check(field('f-contact'));
-    if (!a || !b) { (a ? field('f-contact') : field('f-name')).focus(); return; }
-    var svc = form.querySelector('input[name="svc"]:checked');
-    var svcText = svc ? svc.value : '';
-    var subject = 'Pieprasījums no mājaslapas' + (svcText ? ': ' + svcText : '');
-    var lines = ['Labdien!', ''];
-    var msg = field('f-msg').value.trim();
-    if (msg) lines.push(msg, '');
-    lines.push('Vārds: ' + field('f-name').value.trim());
-    lines.push('Kontakti: ' + field('f-contact').value.trim());
-    if (svcText) lines.push('Darbs: ' + svcText);
-    var place = field('f-place').value.trim();
-    if (place) lines.push('Objekta vieta: ' + place);
-    var href = 'mailto:' + MAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
-    sent.textContent = 'Atveram e-pasta programmu. Ja nekas nenotiek, rakstiet uz ' + MAIL + ' vai zvaniet +371 26931225.';
-    sent.classList.add('on');
-    var link = document.createElement('a');
-    link.href = href;
-    link.hidden = true;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
+    if (!a || !b) { e.preventDefault(); (a ? field('f-contact') : field('f-name')).focus(); }
   });
+  var fileInput = field('f-file'), fileNames = field('f-files');
+  if (fileInput && fileNames) {
+    fileInput.addEventListener('change', function () {
+      var n = fileInput.files ? fileInput.files.length : 0;
+      fileNames.textContent = n ? (n === 1 ? '1 foto' : n + ' foto') : 'Nav izvēlēts neviens fails';
+    });
+  }
+  var thanks = document.getElementById('paldies');
+  function showThanks() { if (location.hash === '#paldies' && thanks) thanks.classList.add('on'); }
+  showThanks();
+  window.addEventListener('hashchange', showThanks);
 })();
 </script>
 </body>
