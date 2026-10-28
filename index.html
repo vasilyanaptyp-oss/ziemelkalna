@@ -197,8 +197,11 @@ p{margin:0}
 .fld textarea{min-height:112px;resize:vertical}
 .fld input:focus,.fld textarea:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(189,134,46,.35)}
 .fld .err{display:none;color:#a3261c;font-size:.875rem;margin-top:6px;font-weight:600}
-.fld.bad input{border-color:#a3261c}
+.fld.bad input{border-color:#a3261c;border-width:2px;background:#fdf1ef}
+.fld.bad label{color:#a3261c}
 .fld.bad .err{display:block}
+.sum{display:none;margin:0 0 14px;padding:12px 14px;background:#fbe9e6;border-left:4px solid #a3261c;color:#7d1b13;font-size:.9375rem;font-weight:700}
+.sum.on{display:block}
 .fs{border:0;margin:0 0 16px;padding:0;min-width:0}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{position:relative}
@@ -218,6 +221,17 @@ p{margin:0}
 .fld .filebox input[type=file]{position:absolute;left:0;top:0;width:100%;height:100%;min-height:0;padding:0;border:0;opacity:0;cursor:pointer}
 .fld .filebox .fb{flex:none;display:inline-flex;align-items:center;min-height:34px;padding:0 12px;background:var(--ink);color:#fff;font-weight:700;font-size:.875rem;border-radius:2px}
 .fld .filebox .fn{flex:1 1 auto;min-width:0;font-size:.8125rem;line-height:1.3;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fld .filebox .fn.has{color:var(--ink);font-weight:700}
+.thumbs{display:none;flex-wrap:wrap;gap:8px;margin-top:10px}
+.thumbs.on{display:flex}
+.thumbs .th{display:block;width:64px;height:64px;object-fit:cover;background:#e8e2d6;border:1px solid #cbc3b5;border-radius:2px}
+.thumbs span.th{display:inline-flex;align-items:center;justify-content:center;font-size:.6875rem;font-weight:700;color:var(--muted);text-transform:uppercase}
+.fnote{display:none;margin:8px 0 0;font-size:.8125rem;line-height:1.35;color:#7a4b00;font-weight:600}
+.fnote.on{display:block}
+.wa{margin:6px 0 0;font-size:.9375rem}
+.wa a{font-weight:700;color:var(--ink);text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:3px;display:inline-flex;align-items:center;min-height:44px}
+.form .btn[disabled]{opacity:.7;cursor:wait}
+.form.sending .filebox{pointer-events:none}
 
 /* footer: foundation */
 .ftr{background:#11181b;color:#c3c8c7;font-size:.9375rem}
@@ -512,7 +526,7 @@ p{margin:0}
       <div class="fld">
         <label for="f-contact">Tālrunis vai e-pasts</label>
         <input id="f-contact" name="contact" type="text" autocomplete="email" required aria-describedby="e-contact">
-        <p class="err" id="e-contact">Lūdzu, norādiet, kā ar jums sazināties.</p>
+        <p class="err" id="e-contact">Lūdzu, ierakstiet tālruni vai e-pastu.</p>
       </div>
       <fieldset class="fs">
         <legend>Kas jādara</legend>
@@ -538,10 +552,14 @@ p{margin:0}
         <div class="filebox">
           <input id="f-file" name="attachment" type="file" accept="image/*" multiple>
           <span class="fb" aria-hidden="true">Izvēlēties failus</span>
-          <span class="fn" id="f-files">Nav izvēlēts neviens fails</span>
+          <span class="fn" id="f-files" aria-live="polite">Nav izvēlēts neviens fails</span>
         </div>
+        <div class="thumbs" id="f-thumbs" aria-hidden="true"></div>
+        <p class="fnote" id="f-note" role="status"></p>
+        <p class="wa"><a href="https://wa.me/37126931225" target="_blank" rel="noopener">Vai sūtiet foto pa WhatsApp</a></p>
       </div>
-      <button class="btn btn-gold" type="submit">Nosūtīt pieteikumu<svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      <p class="sum" id="f-sum" role="alert">Lūdzu, aizpildiet sarkanos laukus.</p>
+      <button class="btn btn-gold" type="submit"><span class="bl">Nosūtīt pieteikumu</span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button>
       <p class="fallback">Vai rakstiet uz <a href="mailto:ziemelkalna.divbuve@gmail.com">ziemelkalna.divbuve@gmail.com</a> vai zvaniet <a href="tel:+37126931225">+371 26931225</a></p>
       <p class="sent" id="paldies" role="status">Paldies! Pieteikums ir nosūtīts. Sazināsimies ar jums.</p>
     </form>
@@ -596,26 +614,178 @@ p{margin:0}
 
   var form = document.getElementById('mailform');
   function field(id) { return document.getElementById(id); }
+  var nameIn = field('f-name'), contactIn = field('f-contact'), sum = field('f-sum');
+  var rules = {
+    'f-name': function (v) { return v.trim().length > 1; },
+    'f-contact': function (v) {
+      v = v.trim();
+      return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) || v.replace(/\D/g, '').length >= 7;
+    }
+  };
   function check(input) {
-    var ok = input.value.trim().length > 1;
+    var ok = rules[input.id](input.value);
     input.closest('.fld').classList.toggle('bad', !ok);
     input.setAttribute('aria-invalid', ok ? 'false' : 'true');
     return ok;
   }
-  ['f-name', 'f-contact'].forEach(function (id) {
-    field(id).addEventListener('input', function () { if (this.closest('.fld').classList.contains('bad')) check(this); });
+  function refreshSummary() {
+    if (!form.querySelector('.fld.bad')) sum.classList.remove('on');
+  }
+  [nameIn, contactIn].forEach(function (input) {
+    input.addEventListener('input', function () {
+      if (this.closest('.fld').classList.contains('bad')) { check(this); refreshSummary(); }
+    });
   });
-  form.addEventListener('submit', function (e) {
-    var a = check(field('f-name')), b = check(field('f-contact'));
-    if (!a || !b) { e.preventDefault(); (a ? field('f-contact') : field('f-name')).focus(); }
-  });
-  var fileInput = field('f-file'), fileNames = field('f-files');
-  if (fileInput && fileNames) {
-    fileInput.addEventListener('change', function () {
-      var n = fileInput.files ? fileInput.files.length : 0;
-      fileNames.textContent = n ? (n === 1 ? '1 foto' : n + ' foto') : 'Nav izvēlēts neviens fails';
+
+  var MAX_PHOTOS = 5, MAX_SIDE = 1600, QUALITY = 0.8, MAX_TOTAL = 4 * 1024 * 1024, SEND_WAIT = 25000;
+  var fileInput = field('f-file'), fileNames = field('f-files'), thumbs = field('f-thumbs'), fnote = field('f-note');
+  var btn = form.querySelector('button[type=submit]'), btnLabel = btn.querySelector('.bl'), btnText = btnLabel.textContent;
+  var run = 0, pending = Promise.resolve(), sending = false, thumbUrls = [];
+
+  function jpgName(name) {
+    var base = (name || 'foto').replace(/\.[^.]*$/, '') || 'foto';
+    return base + '.jpg';
+  }
+  function shrink(file) {
+    return new Promise(function (resolve, reject) {
+      var url = URL.createObjectURL(file), im = new Image();
+      im.onload = function () {
+        var w = im.naturalWidth, h = im.naturalHeight;
+        if (!w || !h) { URL.revokeObjectURL(url); reject(new Error('size')); return; }
+        var k = Math.min(1, MAX_SIDE / Math.max(w, h)), cw = Math.round(w * k), ch = Math.round(h * k);
+        var c = document.createElement('canvas');
+        c.width = cw; c.height = ch;
+        var x = c.getContext('2d');
+        x.fillStyle = '#fff';
+        x.fillRect(0, 0, cw, ch);
+        x.drawImage(im, 0, 0, cw, ch);
+        URL.revokeObjectURL(url);
+        c.toBlob(function (b) {
+          c.width = c.height = 0;
+          if (!b) { reject(new Error('blob')); return; }
+          if (k === 1 && b.size >= file.size) { resolve(file); return; }
+          resolve(new File([b], jpgName(file.name), { type: 'image/jpeg', lastModified: Date.now() }));
+        }, 'image/jpeg', QUALITY);
+      };
+      im.onerror = function () { URL.revokeObjectURL(url); reject(new Error('decode')); };
+      im.src = url;
     });
   }
+  function setFiles(list) {
+    try {
+      var dt = new DataTransfer();
+      list.forEach(function (f) { dt.items.add(f); });
+      fileInput.files = dt.files;
+      return fileInput.files.length === list.length;
+    } catch (err) { return false; }
+  }
+  function uniqueNames(list) {
+    var seen = {};
+    return list.map(function (f) {
+      var n = f.name, i = 1;
+      while (seen[n.toLowerCase()]) { i++; n = f.name.replace(/(\.[^.]*)?$/, '-' + i + '$1'); }
+      seen[n.toLowerCase()] = 1;
+      return n === f.name ? f : new File([f], n, { type: f.type, lastModified: f.lastModified });
+    });
+  }
+  function clearThumbs() {
+    thumbUrls.forEach(function (u) { URL.revokeObjectURL(u); });
+    thumbUrls = [];
+    thumbs.innerHTML = '';
+    thumbs.classList.remove('on');
+  }
+  function show(list, notes) {
+    clearThumbs();
+    var n = list.length;
+    fileNames.textContent = n ? (n === 1 ? '1 foto pievienots' : n + ' foto pievienoti') : 'Nav izvēlēts neviens fails';
+    fileNames.classList.toggle('has', n > 0);
+    list.forEach(function (f) {
+      var u = URL.createObjectURL(f), im = new Image();
+      thumbUrls.push(u);
+      im.className = 'th'; im.alt = ''; im.width = 64; im.height = 64;
+      im.onerror = function () {
+        var s = document.createElement('span');
+        s.className = 'th'; s.textContent = 'foto';
+        if (im.parentNode) im.parentNode.replaceChild(s, im);
+      };
+      im.src = u;
+      thumbs.appendChild(im);
+    });
+    thumbs.classList.toggle('on', n > 0);
+    fnote.textContent = notes.join(' ');
+    fnote.classList.toggle('on', notes.length > 0);
+  }
+  function prepare(my, src) {
+    var out = [], notes = [], all = src;
+    if (src.length > MAX_PHOTOS) { src = src.slice(0, MAX_PHOTOS); notes.push('Var pievienot līdz ' + MAX_PHOTOS + ' foto, pārējie nav pievienoti.'); }
+    return src.reduce(function (p, f) {
+      return p.then(function () {
+        if (my !== run) return;
+        return shrink(f).catch(function () { return f; }).then(function (r) { out.push(r); });
+      });
+    }, Promise.resolve()).then(function () {
+      if (my !== run) return;
+      var keep = [], total = 0;
+      for (var i = 0; i < out.length; i++) {
+        if (total + out[i].size > MAX_TOTAL) {
+          notes.push(keep.length ? 'Kopējais foto izmērs ir par lielu, daļa netika pievienota.' : 'Foto ir par lielu, lūdzu sūtiet to pa WhatsApp.');
+          break;
+        }
+        keep.push(out[i]); total += out[i].size;
+      }
+      keep = uniqueNames(keep);
+      if (!setFiles(keep)) { show(all, []); return; }
+      show(keep, notes);
+    }).catch(function () {
+      if (my === run) show(Array.prototype.slice.call(fileInput.files || []), []);
+    });
+  }
+  if (fileInput && fileNames) {
+    fileInput.addEventListener('change', function () {
+      var my = ++run, src = Array.prototype.slice.call(fileInput.files || []);
+      if (!src.length) { pending = Promise.resolve(); show([], []); return; }
+      fileNames.textContent = 'Apstrādā foto…';
+      fileNames.classList.remove('has');
+      pending = prepare(my, src);
+    });
+  }
+
+  function setSending(on) {
+    sending = on;
+    btn.disabled = on;
+    form.classList.toggle('sending', on);
+    btnLabel.textContent = on ? 'Sūta…' : btnText;
+  }
+  function firstError() {
+    var a = check(nameIn), b = check(contactIn);
+    if (a && b) return null;
+    return a ? contactIn : nameIn;
+  }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (sending) return;
+    var bad = firstError();
+    if (bad) {
+      sum.classList.add('on');
+      bad.closest('.fld').scrollIntoView({ block: 'center' });
+      try { bad.focus({ preventScroll: true }); } catch (err) { bad.focus(); }
+      return;
+    }
+    sum.classList.remove('on');
+    setSending(true);
+    var sent = false;
+    function go() {
+      if (sent) return;
+      sent = true;
+      run++;
+      clearTimeout(timer);
+      try { HTMLFormElement.prototype.submit.call(form); } catch (err) { setSending(false); return; }
+      setTimeout(function () { setSending(false); }, 45000);
+    }
+    var timer = setTimeout(go, SEND_WAIT);
+    pending.then(go, go);
+  });
+  window.addEventListener('pageshow', function (e) { if (e.persisted && sending) setSending(false); });
   var thanks = document.getElementById('paldies');
   function showThanks() { if (location.hash === '#paldies' && thanks) thanks.classList.add('on'); }
   showThanks();
